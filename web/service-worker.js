@@ -1,16 +1,28 @@
 'use strict';
 
-const CACHE_NAME = 'gama-music-shell-v20';
+const CACHE_NAME = 'gama-music-shell-v25';
 const SHELL_ASSETS = [
   './',
   './index.html',
   './styles.css',
   './app.js',
   './manifest.webmanifest',
-  './assets/icon.svg',
-  './assets/icon-192.png',
-  './assets/icon-512.png',
-  './assets/apple-touch-icon.png'
+  './assets/icon.svg?v=24',
+  './assets/icon-192.png?v=24',
+  './assets/icon-512.png?v=24',
+  './assets/apple-touch-icon.png?v=24',
+  './assets/playlist/cat.svg',
+  './assets/playlist/dog.svg',
+  './assets/playlist/panda.svg',
+  './assets/playlist/rabbit.svg',
+  './assets/playlist/fox.svg',
+  './assets/playlist/bear.svg',
+  './assets/playlist/koala.svg',
+  './assets/playlist/penguin.svg',
+  './assets/playlist/red-panda.svg',
+  './assets/playlist/frog.svg',
+  './assets/playlist/tiger.svg',
+  './assets/playlist/lion.svg'
 ];
 
 self.addEventListener('install', (event) => {

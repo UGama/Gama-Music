@@ -385,7 +385,7 @@ input::placeholder {
   display: none;
 }
 @media (hover: hover) and (pointer: fine) {
-  button:not(:disabled):hover {
+  button:not(:disabled):not(.choice-title):hover {
     transform: translateY(-2px);
     border-color: rgba(53, 106, 230, 0.34);
     box-shadow: 0 7px 18px rgba(36, 83, 188, 0.14);
@@ -1241,32 +1241,8 @@ input[type="range"] {
   height: 52px;
   border-radius: 12px;
   overflow: hidden;
-  color: #ffffff;
-  font-size: 25px;
-  font-weight: 800;
   user-select: none;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16), 0 5px 14px rgba(30, 45, 80, 0.12);
-}
-.playlist-cover span {
-  transform: translateY(-1px);
-}
-.playlist-cover.cover-blue {
-  background: linear-gradient(145deg, #3267df, #173d9c);
-}
-.playlist-cover.cover-purple {
-  background: linear-gradient(145deg, #7357d8, #4730a5);
-}
-.playlist-cover.cover-indigo {
-  background: linear-gradient(145deg, #5368d8, #273a9a);
-}
-.playlist-cover.cover-sky {
-  background: linear-gradient(145deg, #4196db, #245eb4);
-}
-.playlist-cover.cover-mint {
-  background: linear-gradient(145deg, #3b9d94, #216a70);
-}
-.playlist-cover.cover-rose {
-  background: linear-gradient(145deg, #d76579, #9a3858);
 }
 @media (max-width: 719px) {
   .playlist-card {
@@ -1277,7 +1253,6 @@ input[type="range"] {
     width: 50px;
     height: 50px;
     border-radius: 11px;
-    font-size: 23px;
   }
 }
 .track-card {
@@ -1374,7 +1349,7 @@ input[type="range"] {
   transform: translateX(-140%);
 }
 .player.playing .player-art {
-  animation: gama-cover-breathe 3.2s ease-in-out infinite;
+  animation: gama-cover-breathe 2.6s ease-in-out infinite;
 }
 .player.playing .player-art::after {
   animation: gama-cover-shine 4.6s ease-in-out infinite;
@@ -1385,8 +1360,8 @@ input[type="range"] {
     box-shadow: 0 5px 14px rgba(17, 32, 70, 0.15);
   }
   50% {
-    transform: scale(1.035);
-    box-shadow: 0 7px 18px rgba(36, 83, 188, 0.28);
+    transform: scale(1.075);
+    box-shadow: 0 8px 22px rgba(36, 83, 188, 0.42), 0 0 0 3px rgba(53, 106, 230, 0.12);
   }
 }
 @keyframes gama-cover-shine {
@@ -1588,7 +1563,6 @@ input[type="range"] {
   height: 48px;
   flex: 0 0 auto;
   border-radius: 12px;
-  font-size: 21px;
 }
 .mobile-playlist-sticky-title {
   display: none;
@@ -1601,7 +1575,6 @@ input[type="range"] {
     width: 58px;
     height: 58px;
     border-radius: 14px;
-    font-size: 27px;
   }
   .playlist-detail-title {
     min-width: 0;
@@ -1637,7 +1610,6 @@ input[type="range"] {
     height: 32px;
     flex: 0 0 auto;
     border-radius: 9px;
-    font-size: 15px;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
   }
   .mobile-playlist-sticky-name {
@@ -1649,4 +1621,84 @@ input[type="range"] {
     font-size: 16px;
     font-weight: 800;
   }
+}
+/* ==================================================
+   Playlist card hover fix
+   ================================================== */
+
+/*
+ * 播放列表名称本身虽然是 button，
+ * 但不要使用全局按钮的浮起动画。
+ */
+.playlist-card .choice-title:hover,
+.playlist-card .choice-title:focus-visible {
+  transform: none;
+
+  border-color: transparent;
+  box-shadow: none;
+
+  background: transparent;
+}
+
+
+/*
+ * 鼠标放到卡片主体时，
+ * 只让整张卡片产生轻微反馈。
+ */
+@media (hover: hover) and (pointer: fine) {
+
+  .playlist-card:hover {
+    transform: translateY(-1px);
+
+    border-color:
+      rgba(53, 106, 230, 0.30);
+
+    background: #f8faff;
+
+    box-shadow:
+      0 5px 14px
+      rgba(36, 83, 188, 0.08);
+  }
+
+
+  /*
+   * 但是鼠标放到播放/改名/删除按钮时，
+   * 不要让整张卡片移动。
+   */
+  .playlist-card:has(.playlist-actions button:hover) {
+    transform: none;
+  }
+}
+/* Artwork fills the existing playlist cover sizes in all three views. */
+.playlist-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Independent playlist downloads share space, never a progress element. */
+.playlist-save-jobs:not([hidden]) {
+  display: grid;
+  gap: 8px;
+  margin: 10px 0;
+}
+.playlist-save-message {
+  overflow-wrap: anywhere;
+  min-height: 2.9em;
+}
+.playlist-save-status progress[hidden] {
+  display: none;
+}
+.playlist-save-status button {
+  margin-top: 8px;
+}
+
+.playlist-main-action:disabled {
+  cursor: default;
+  color: #7b818b;
+  background: #eceef1;
+  border-color: #dfe2e7;
+  box-shadow: none;
+  opacity: 1;
 }

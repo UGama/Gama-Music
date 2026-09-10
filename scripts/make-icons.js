@@ -88,79 +88,38 @@ function roundedRectContains(px, py, x, y, w, h, r) {
   return dx * dx + dy * dy <= r * r;
 }
 
+const iconBackground = '#111315';
+const iconBars = [
+  { x: 15, y: 30, width: 8, height: 23, fill: '#356ae6' },
+  { x: 28, y: 17, width: 8, height: 36, fill: '#e45f50' },
+  { x: 41, y: 25, width: 8, height: 28, fill: '#f8f8f4' }
+];
+
 function drawIcon(size, fileName) {
   const rgba = Buffer.alloc(size * size * 4);
-  const bgA = hexToRgb('#101113');
-  const bgB = hexToRgb('#20283a');
-  const teal = hexToRgb('#356ae6');
-  const coral = hexToRgb('#ef6757');
-  const paper = hexToRgb('#f8f8f4');
-
-  function setPixel(x, y, rgb, alpha = 255) {
-    if (x < 0 || y < 0 || x >= size || y >= size) return;
-    const i = (y * size + x) * 4;
-    const nextAlpha = alpha / 255;
-    rgba[i] = blend(rgba[i], rgb[0], nextAlpha);
-    rgba[i + 1] = blend(rgba[i + 1], rgb[1], nextAlpha);
-    rgba[i + 2] = blend(rgba[i + 2], rgb[2], nextAlpha);
-    rgba[i + 3] = 255;
-  }
-
-  function fillRoundedRect(x, y, w, h, r, rgb, alpha = 255) {
-    const minX = Math.floor(x);
-    const minY = Math.floor(y);
-    const maxX = Math.ceil(x + w);
-    const maxY = Math.ceil(y + h);
-    for (let py = minY; py < maxY; py += 1) {
-      for (let px = minX; px < maxX; px += 1) {
-        if (roundedRectContains(px + 0.5, py + 0.5, x, y, w, h, r)) {
-          setPixel(px, py, rgb, alpha);
-        }
-      }
-    }
-  }
-
-  function strokeCircle(cx, cy, radius, width, rgb, alpha = 255) {
-    const min = Math.floor(cx - radius - width);
-    const max = Math.ceil(cx + radius + width);
-    for (let y = min; y <= max; y += 1) {
-      for (let x = min; x <= max; x += 1) {
-        const d = Math.hypot(x + 0.5 - cx, y + 0.5 - cy);
-        if (d >= radius - width / 2 && d <= radius + width / 2) {
-          setPixel(x, y, rgb, alpha);
-        }
-      }
-    }
-  }
-
+  const samples = 4;
   for (let y = 0; y < size; y += 1) {
     for (let x = 0; x < size; x += 1) {
-      const t = (x + y) / (size * 2);
-      const v = Math.hypot(x - size * 0.72, y - size * 0.18) / size;
-      const rgb = [
-        blend(bgA[0], bgB[0], Math.min(1, t + v * 0.25)),
-        blend(bgA[1], bgB[1], Math.min(1, t + v * 0.25)),
-        blend(bgA[2], bgB[2], Math.min(1, t + v * 0.25))
-      ];
-      setPixel(x, y, rgb, 255);
+      const total = [0, 0, 0];
+      let covered = 0;
+      for (let sy = 0; sy < samples; sy += 1) {
+        for (let sx = 0; sx < samples; sx += 1) {
+          const px = (x + (sx + 0.5) / samples) * 64 / size;
+          const py = (y + (sy + 0.5) / samples) * 64 / size;
+          if (!roundedRectContains(px, py, 0, 0, 64, 64, 14)) continue;
+          let color = iconBackground;
+          for (const bar of iconBars) {
+            if (roundedRectContains(px, py, bar.x, bar.y, bar.width, bar.height, 4)) color = bar.fill;
+          }
+          hexToRgb(color).forEach((value, i) => { total[i] += value; });
+          covered += 1;
+        }
+      }
+      const offset = (y * size + x) * 4;
+      if (covered) total.forEach((value, i) => { rgba[offset + i] = Math.round(value / covered); });
+      rgba[offset + 3] = Math.round(255 * covered / (samples * samples));
     }
   }
-
-  fillRoundedRect(size * 0.16, size * 0.18, size * 0.68, size * 0.64, size * 0.08, [255, 255, 255], 18);
-  strokeCircle(size * 0.5, size * 0.49, size * 0.23, size * 0.045, teal, 240);
-  strokeCircle(size * 0.5, size * 0.49, size * 0.145, size * 0.035, paper, 230);
-  fillRoundedRect(size * 0.43, size * 0.42, size * 0.14, size * 0.14, size * 0.035, coral, 250);
-
-  const bars = [
-    [0.25, 0.42, 0.08, 0.25, teal],
-    [0.36, 0.32, 0.08, 0.36, coral],
-    [0.56, 0.29, 0.08, 0.39, teal],
-    [0.67, 0.39, 0.08, 0.29, coral]
-  ];
-  for (const [x, y, w, h, color] of bars) {
-    fillRoundedRect(size * x, size * y, size * w, size * h, size * 0.035, color, 245);
-  }
-
   writePng(size, size, rgba, path.join(assets, fileName));
 }
 
@@ -168,5 +127,10 @@ fs.mkdirSync(assets, { recursive: true });
 drawIcon(180, 'apple-touch-icon.png');
 drawIcon(192, 'icon-192.png');
 drawIcon(512, 'icon-512.png');
+
+fs.writeFileSync(path.join(assets, 'icon.svg'), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Gama Music">
+  <rect width="64" height="64" rx="14" fill="${iconBackground}"/>
+${iconBars.map((bar) => `  <rect x="${bar.x}" y="${bar.y}" width="${bar.width}" height="${bar.height}" rx="4" fill="${bar.fill}"/>`).join('\n')}
+</svg>\n`);
 
 console.log('Generated Gama Music app icons.');

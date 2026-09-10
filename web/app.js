@@ -30,6 +30,7 @@ const state = {
   offlineTrackIds: new Set(),
   offlineCoverUrls: new Map(),
   offlineUsage: 0,
+  playlistSaveJobs: new Map(),
   playerCoverUrl: null,
   playlistHeaderScrollHandler: null,
   activeObjectUrl: ''
@@ -58,28 +59,42 @@ function icon(name) {
 
 function getPlaylistCover(playlist) {
   const covers = [
-    { symbol: '♪', className: 'cover-blue' },
-    { symbol: '♫', className: 'cover-purple' },
-    { symbol: '✦', className: 'cover-indigo' },
-    { symbol: '▶', className: 'cover-sky' },
-    { symbol: '∞', className: 'cover-mint' },
-    { symbol: '♬', className: 'cover-rose' }
+    { image: './assets/playlist/cat.svg' },
+    { image: './assets/playlist/dog.svg' },
+    { image: './assets/playlist/panda.svg' },
+    { image: './assets/playlist/rabbit.svg' },
+    { image: './assets/playlist/fox.svg' },
+    { image: './assets/playlist/bear.svg' },
+    { image: './assets/playlist/koala.svg' },
+    { image: './assets/playlist/penguin.svg' },
+    { image: './assets/playlist/red-panda.svg' },
+    { image: './assets/playlist/frog.svg' },
+    { image: './assets/playlist/tiger.svg' },
+    { image: './assets/playlist/lion.svg' }
   ];
 
-  const seed = String(
-    playlist.id ||
-    playlist.name ||
-    'playlist'
-  );
-
-  let hash = 0;
-
-  for (let i = 0; i < seed.length; i += 1) {
-    hash =
-      ((hash * 31) + seed.charCodeAt(i)) >>> 0;
+  function preferredIndex(item) {
+    const seed = String(item.id || item.name || 'playlist');
+    let hash = 0;
+    for (let i = 0; i < seed.length; i += 1) {
+      hash = ((hash * 31) + seed.charCodeAt(i)) >>> 0;
+    }
+    return hash % covers.length;
   }
 
-  return covers[hash % covers.length];
+  // Resolve in the same order as the cards, so every view gets the same cover.
+  // Only move away from the hash choice when it repeats the previous animal.
+  let previousIndex = -1;
+  for (const item of state.library.playlists) {
+    let index = preferredIndex(item);
+    if (index === previousIndex) index = (index + 1) % covers.length;
+    if (item === playlist || (playlist.id != null && item.id === playlist.id)) {
+      return covers[index];
+    }
+    previousIndex = index;
+  }
+
+  return covers[preferredIndex(playlist)];
 }
 
 function initElements() {
@@ -102,6 +117,7 @@ function initElements() {
     searchInput: $('#searchInput'),
     playAllButton: $('#playAllButton'),
     offlineSummary: $('#offlineSummary'),
+    playlistSaveStatus: $('#playlistSaveStatus'),
     playlistForm: $('#playlistForm'),
     playlistNameInput: $('#playlistNameInput'),
     playlistList: $('#playlistList'),
@@ -404,6 +420,55 @@ function clearStatus() {
   [els.downloadStatus, els.mobileStatus].filter(Boolean).forEach((element) => {
     element.hidden = true;
     element.textContent = '';
+  });
+}
+
+// Each playlist owns a persistent row; progress updates never replace other rows.
+function updatePlaylistSaveStatus(playlistId, message, type = 'info', progress = null) {
+  const job = state.playlistSaveJobs.get(playlistId);
+  if (!job || !els.playlistSaveStatus) return;
+  if (!job.element) {
+    job.element = document.createElement('div');
+    job.element.className = 'status-card playlist-save-status';
+    job.element.innerHTML = '<strong></strong><div class="playlist-save-message"></div><progress max="100"></progress><button type="button" class="secondary-button compact" data-action="dismiss-playlist-save" hidden>关闭</button>';
+    job.element.querySelector('strong').textContent = `保存到手机 · ${job.name}`;
+    job.element.querySelector('progress').setAttribute('aria-label', `保存 ${job.name} 的进度`);
+    job.element.querySelector('button').dataset.playlistId = playlistId;
+    els.playlistSaveStatus.append(job.element);
+  }
+  els.playlistSaveStatus.hidden = false;
+  job.element.classList.toggle('warning', type === 'warning');
+  job.element.querySelector('.playlist-save-message').textContent = message;
+  const bar = job.element.querySelector('progress');
+  bar.hidden = progress === null;
+  if (progress !== null) bar.value = Math.max(0, Math.min(100, progress));
+  job.element.querySelector('button').hidden = job.active;
+}
+
+function isPlaylistFullySaved(playlist) {
+  return Boolean(playlist?.trackIds.length) && playlist.trackIds.every((id) => {
+    const track = state.library.tracks.find((item) => item.id === id);
+    return Boolean(track) && state.offlineTrackIds.has(id) &&
+      (!track.cover || state.offlineCoverUrls.has(id));
+  });
+}
+
+function playlistSaveButtonState(playlist) {
+  if (state.playlistSaveJobs.get(playlist?.id)?.active) {
+    return { disabled: true, label: '正在保存…' };
+  }
+  if (isPlaylistFullySaved(playlist)) {
+    return { disabled: true, label: '已全部保存' };
+  }
+  return { disabled: false, label: '↓ 保存全部' };
+}
+
+function syncPlaylistSaveButtons() {
+  document.querySelectorAll('[data-action="save-playlist-offline"]').forEach((button) => {
+    const playlist = state.library.playlists.find((item) => item.id === button.dataset.playlistId);
+    const status = playlistSaveButtonState(playlist);
+    button.disabled = status.disabled;
+    button.textContent = status.label;
   });
 }
 
@@ -824,10 +889,10 @@ function renderPlaylists() {
           data-playlist-id="${playlist.id}"
           >
         <div
-          class="playlist-cover ${cover.className}"
+          class="playlist-cover"
           aria-hidden="true"
           >
-          <span>${cover.symbol}</span>
+          <img src="${cover.image}" alt="" draggable="false">
         </div>
           <button
             class="choice-title"
@@ -918,9 +983,9 @@ function renderPlaylists() {
         aria-hidden="true"
         >
       <div
-        class="playlist-cover playlist-sticky-cover ${selectedCover.className}"
+        class="playlist-cover playlist-sticky-cover"
         >
-      <span>${selectedCover.symbol}</span>
+      <img src="${selectedCover.image}" alt="" draggable="false">
     </div>
 
     <span class="mobile-playlist-sticky-name">
@@ -945,10 +1010,10 @@ function renderPlaylists() {
   <div class="playlist-detail-identity">
 
     <div
-      class="playlist-cover playlist-detail-cover ${selectedCover.className}"
+      class="playlist-cover playlist-detail-cover"
       aria-hidden="true"
     >
-      <span>${selectedCover.symbol}</span>
+      <img src="${selectedCover.image}" alt="" draggable="false">
     </div>
 
     <div class="playlist-detail-title">
@@ -992,8 +1057,9 @@ function renderPlaylists() {
         type="button"
         data-action="save-playlist-offline"
         data-playlist-id="${selected.id}"
+        ${playlistSaveButtonState(selected).disabled ? 'disabled' : ''}
       >
-        ↓ 保存全部
+        ${playlistSaveButtonState(selected).label}
       </button>
 
     </div>
@@ -1738,7 +1804,7 @@ async function savePlaylistToIphone(
         item.id === playlistId
     );
 
-  if (!playlist) return;
+  if (!playlist || playlistSaveButtonState(playlist).disabled) return;
 
 
   const tracks =
@@ -1762,6 +1828,14 @@ async function savePlaylistToIphone(
   }
 
 
+  const previousJob = state.playlistSaveJobs.get(playlistId);
+  const job = { name: playlist.name, active: true, element: previousJob?.element || null };
+  state.playlistSaveJobs.set(playlistId, job);
+  const report = (message, type = 'info', progress = null) =>
+    updatePlaylistSaveStatus(playlistId, message, type, progress);
+  if (job.element) job.element.querySelector('strong').textContent = `保存到手机 · ${job.name}`;
+  report('准备保存…', 'info', 0);
+  syncPlaylistSaveButtons();
   button.disabled = true;
 
   let audioSavedCount = 0;
@@ -1826,7 +1900,7 @@ async function savePlaylistToIphone(
             100
           );
 
-        setStatus(
+        report(
           `正在保存“${playlist.name}”` +
           ` · ${index + 1}/${tracks.length}` +
           ` · 已完整保存，跳过：${track.title}`,
@@ -1877,7 +1951,7 @@ async function savePlaylistToIphone(
                   100
                 );
 
-              setStatus(
+              report(
                 `正在保存“${playlist.name}”` +
                 ` · ${index + 1}/${tracks.length}` +
                 ` · ${track.title}` +
@@ -1905,7 +1979,7 @@ async function savePlaylistToIphone(
                   100
                 );
 
-              setStatus(
+              report(
                 `正在保存“${playlist.name}”` +
                 ` · ${index + 1}/${tracks.length}` +
                 ` · 正在保存封面：${track.title}`,
@@ -1971,7 +2045,7 @@ async function savePlaylistToIphone(
     render();
 
 
-    setStatus(
+    report(
       `“${playlist.name}”保存完成` +
       ` · 新保存 MP3 ${audioSavedCount} 首` +
       ` · 新保存封面 ${coverSavedCount} 个` +
@@ -1994,13 +2068,16 @@ async function savePlaylistToIphone(
         ? 'iPhone 可用存储空间不足，请先删除一些本地歌曲。'
         : error.message;
 
-    setStatus(
+    report(
       message,
       'warning'
     );
 
   } finally {
+    job.active = false;
+    if (job.element) job.element.querySelector('button').hidden = false;
     button.disabled = false;
+    syncPlaylistSaveButtons();
   }
 }
 
@@ -2123,6 +2200,11 @@ function updateActiveTrackCards() {
 }
 
 function renderPlayer() {
+  if (navigator.mediaSession) {
+    navigator.mediaSession.playbackState = state.currentTrackId
+      ? (els.audio.paused ? 'paused' : 'playing')
+      : 'none';
+  }
   const track =
     currentTrack();
 
@@ -2436,6 +2518,16 @@ async function handleAction(event) {
     await playTrack(trackId, button.dataset.context || 'library');
   }
 
+  if (action === 'dismiss-playlist-save') {
+    const job = state.playlistSaveJobs.get(playlistId);
+    if (job && !job.active) {
+      job.element?.remove();
+      state.playlistSaveJobs.delete(playlistId);
+      els.playlistSaveStatus.hidden = state.playlistSaveJobs.size === 0;
+    }
+    return;
+  }
+
   if (action === 'save-offline') {
     await saveTrackToIphone(trackId, button);
   }
@@ -2597,6 +2689,7 @@ function bindEvents() {
   });
 
   els.audio.addEventListener('play', renderPlayer);
+  els.audio.addEventListener('playing', configureMediaSessionActions);
   els.audio.addEventListener('pause', renderPlayer);
   els.audio.addEventListener('timeupdate', updateProgress);
   els.audio.addEventListener('loadedmetadata', updateProgress);
@@ -2623,11 +2716,29 @@ function bindEvents() {
     if (event.target === els.modal) closeModal();
   });
 
-  if ('mediaSession' in navigator) {
-    navigator.mediaSession.setActionHandler('play', () => els.audio.play());
-    navigator.mediaSession.setActionHandler('pause', () => els.audio.pause());
-    navigator.mediaSession.setActionHandler('previoustrack', () => goPrev());
-    navigator.mediaSession.setActionHandler('nexttrack', () => goNext());
+  configureMediaSessionActions();
+}
+
+function configureMediaSessionActions() {
+  if (!navigator.mediaSession?.setActionHandler) return;
+  const run = (action) => () => {
+    Promise.resolve().then(action).catch((error) => setStatus(error.message, 'warning'));
+  };
+  const handlers = {
+    seekbackward: null,
+    seekforward: null,
+    play: run(() => els.audio.play()),
+    pause: run(() => els.audio.pause()),
+    previoustrack: run(() => goPrev()),
+    nexttrack: run(() => goNext())
+  };
+  for (const [action, handler] of Object.entries(handlers)) {
+    try {
+      navigator.mediaSession.setActionHandler(action, handler);
+    } catch (error) {
+      // An unsupported action must not prevent the other controls from registering.
+      console.warn(`Media Session action unavailable: ${action}`, error);
+    }
   }
 }
 
