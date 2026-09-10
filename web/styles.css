@@ -1702,3 +1702,16 @@ input[type="range"] {
   box-shadow: none;
   opacity: 1;
 }
+
+/* ==================================================
+   iPhone / touch device: never show desktop tooltips
+   ================================================== */
+
+@media (max-width: 719px), (hover: none), (pointer: coarse) {
+
+  button[aria-label]::after {
+    display: none !important;
+    content: none !important;
+  }
+
+}

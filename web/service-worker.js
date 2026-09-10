@@ -1,16 +1,16 @@
 'use strict';
 
-const CACHE_NAME = 'gama-music-shell-v26';
+const CACHE_NAME = 'gama-music-shell-v27';
 const SHELL_ASSETS = [
   './',
   './index.html',
   './styles.css',
   './app.js',
   './manifest.webmanifest',
-  './assets/icon.svg?v=26',
-  './assets/icon-192.png?v=26',
-  './assets/icon-512.png?v=26',
-  './assets/apple-touch-icon.png?v=26',
+  './assets/icon.svg?v=27',
+  './assets/icon-192.png?v=27',
+  './assets/icon-512.png?v=27',
+  './assets/apple-touch-icon.png?v=27',
   './assets/playlist/cat.svg',
   './assets/playlist/dog.svg',
   './assets/playlist/panda.svg',
