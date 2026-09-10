@@ -1,3 +1,7 @@
+/* Gama Music stylesheet
+ * Safe cleanup: redundant overridden declarations and old comments removed.
+ * Layout/visual behavior preserved.
+ */
 :root {
   color-scheme: light;
   --bg: #f7f8fa;
@@ -14,59 +18,45 @@
   --radius: 8px;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
 }
-
 * {
   box-sizing: border-box;
 }
-
 html {
   min-height: 100%;
   background: var(--bg);
 }
-
 body {
   min-height: 100%;
   margin: 0;
   color: var(--ink);
-  background:
-    linear-gradient(180deg, rgba(53, 106, 230, 0.08), transparent 28rem),
-    var(--bg);
+  background: linear-gradient(180deg, rgba(53, 106, 230, 0.08), transparent 28rem), var(--bg);
   letter-spacing: 0;
 }
-
-button,
-input {
+button, input {
   font: inherit;
 }
-
 button {
   position: relative;
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
   transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease, background-color 160ms ease, color 160ms ease;
 }
-
 button:not(:disabled):active {
   transform: scale(0.96);
 }
-
 button:disabled {
   cursor: wait;
   opacity: 0.58;
 }
-
-button:focus-visible,
-input:focus-visible {
+button:focus-visible, input:focus-visible {
   outline: 3px solid rgba(53, 106, 230, 0.28);
   outline-offset: 2px;
 }
-
 .app-shell {
   width: min(100%, 920px);
   margin: 0 auto;
   padding: calc(env(safe-area-inset-top) + 16px) 16px 198px;
 }
-
 .topbar {
   position: sticky;
   top: 0;
@@ -79,37 +69,25 @@ input:focus-visible {
   background: linear-gradient(180deg, rgba(247, 248, 250, 0.96) 65%, rgba(247, 248, 250, 0));
   backdrop-filter: blur(18px);
 }
-
 .brand {
   display: flex;
   align-items: center;
   min-width: 0;
   gap: 10px;
 }
-
 .brand img {
   width: 40px;
   height: 40px;
   border-radius: 8px;
   box-shadow: 0 8px 22px rgba(17, 19, 21, 0.18);
 }
-
-.brand-name,
-.brand-subtitle,
-.now-copy p,
-.now-copy span,
-.eyebrow,
-h1,
-h2,
-p {
+.brand-name, .brand-subtitle, .now-copy p, .now-copy span, .eyebrow, h1, h2, p {
   margin: 0;
 }
-
 .brand-name {
   font-weight: 760;
   font-size: 18px;
 }
-
 .brand-subtitle {
   max-width: 64vw;
   overflow: hidden;
@@ -119,7 +97,6 @@ p {
   font-size: 12px;
   margin-top: 3px;
 }
-
 .icon-button {
   display: inline-grid;
   place-items: center;
@@ -131,13 +108,11 @@ p {
   color: var(--ink);
   background: rgba(255, 255, 255, 0.88);
 }
-
 .icon-button svg {
   width: 22px;
   height: 22px;
   fill: currentColor;
 }
-
 .icon-button.strong {
   width: 52px;
   height: 52px;
@@ -146,11 +121,6 @@ p {
   border-color: var(--teal-strong);
   box-shadow: 0 8px 20px rgba(36, 83, 188, 0.22);
 }
-
-.download-panel {
-  padding: 22px 0 18px;
-}
-
 .section-heading {
   display: flex;
   align-items: flex-start;
@@ -158,21 +128,18 @@ p {
   gap: 18px;
   margin-bottom: 18px;
 }
-
 .eyebrow {
   color: var(--teal-strong);
   font-size: 12px;
   font-weight: 800;
   text-transform: uppercase;
 }
-
 h1 {
   max-width: 14em;
   margin-top: 8px;
   font-size: 32px;
   line-height: 1.08;
 }
-
 .library-count {
   flex: 0 0 auto;
   min-width: 64px;
@@ -185,12 +152,9 @@ h1 {
   font-size: 13px;
   font-weight: 800;
 }
-
-.download-form,
-.favorites-import-panel {
+.download-form, .favorites-import-panel {
   margin: 0 0 14px;
 }
-
 .favorites-import-card {
   padding: 14px;
   border: 1px solid var(--line);
@@ -198,36 +162,29 @@ h1 {
   background: rgba(255, 255, 255, 0.92);
   box-shadow: 0 14px 38px rgba(17, 19, 21, 0.08);
 }
-
 .favorites-import-heading {
   margin-bottom: 14px;
 }
-
 .favorites-import-heading h2 {
   margin: 6px 0 4px;
   font-size: 20px;
 }
-
 .favorites-import-heading p:last-child {
   color: var(--muted);
   font-size: 12px;
 }
-
 .favorite-import-form {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 10px;
   align-items: end;
 }
-
 .favorite-import-form .primary-button {
   min-width: 120px;
 }
-
 .favorite-status {
   margin-top: 12px;
 }
-
 .content-surface {
   padding: 14px;
   border: 1px solid var(--line);
@@ -235,19 +192,15 @@ h1 {
   background: rgba(255, 255, 255, 0.9);
   box-shadow: 0 14px 38px rgba(17, 19, 21, 0.08);
 }
-
-.field,
-.search-field {
+.field, .search-field {
   display: grid;
   gap: 7px;
 }
-
 .field span {
   color: var(--muted);
   font-size: 12px;
   font-weight: 720;
 }
-
 input {
   width: 100%;
   min-height: 46px;
@@ -258,50 +211,39 @@ input {
   background: var(--surface);
   box-shadow: none;
 }
-
 input::placeholder {
   color: #9aa1a0;
 }
-
 .download-form {
   display: grid;
   gap: 12px;
 }
-
-.form-actions,
-.modal-actions {
+.form-actions, .modal-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
-
-.primary-button,
-.secondary-button,
-.mode-button {
+.primary-button, .secondary-button, .mode-button {
   min-height: 46px;
   border-radius: var(--radius);
   border: 1px solid transparent;
   padding: 0 14px;
   font-weight: 760;
 }
-
 .primary-button {
   color: #fff;
   background: var(--teal-strong);
   box-shadow: 0 7px 18px rgba(36, 83, 188, 0.18);
 }
-
 .secondary-button {
   color: var(--ink);
   background: var(--surface-strong);
   border-color: var(--line);
 }
-
 .compact {
   min-height: 42px;
   white-space: nowrap;
 }
-
 .status-card {
   border: 1px solid rgba(53, 106, 230, 0.22);
   border-radius: var(--radius);
@@ -311,13 +253,11 @@ input::placeholder {
   font-size: 14px;
   line-height: 1.45;
 }
-
 .status-card.warning {
   color: #9b372b;
   border-color: rgba(228, 95, 80, 0.28);
   background: var(--coral-soft);
 }
-
 .status-card progress {
   display: block;
   width: 100%;
@@ -325,68 +265,40 @@ input::placeholder {
   margin-top: 10px;
   accent-color: var(--teal);
 }
-
 .mobile-status {
   display: none;
   margin-top: 10px;
 }
-
 .mobile-status[hidden] {
   display: none;
 }
-
 .content-surface {
   margin-top: 8px;
 }
-
 .segmented {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6px;
-  padding: 5px;
-  border-radius: var(--radius);
-  background: #edf1ef;
 }
-
 .segmented button {
-  min-height: 40px;
   border: 0;
-  border-radius: calc(var(--radius) - 2px);
-  color: var(--muted);
-  background: transparent;
-  font-weight: 760;
 }
-
-.segmented button.active {
-  color: var(--ink);
-  background: #fff;
-  box-shadow: 0 4px 16px rgba(17, 19, 21, 0.08);
-}
-
 .view-pane {
   margin-top: 14px;
 }
-
 .hidden {
   display: none !important;
 }
-
-.toolbar-row,
-.playlist-form {
+.toolbar-row, .playlist-form {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 10px;
   align-items: end;
 }
-
-.track-list,
-.playlist-list,
-.playlist-detail-list {
+.track-list, .playlist-list, .playlist-detail-list {
   display: grid;
   gap: 10px;
   margin-top: 14px;
 }
-
 .offline-summary {
   display: none;
   margin-top: 10px;
@@ -394,9 +306,7 @@ input::placeholder {
   font-size: 12px;
   font-weight: 760;
 }
-
-.track-card,
-.playlist-card {
+.track-card, .playlist-card {
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
@@ -407,18 +317,13 @@ input::placeholder {
   border-radius: var(--radius);
   background: #fff;
 }
-
-.track-card>div:first-child,
-.playlist-card>div:first-child {
+.track-card>div:first-child, .playlist-card>div:first-child {
   min-width: 0;
 }
-
-.track-card.active,
-.playlist-card.active {
+.track-card.active, .playlist-card.active {
   border-color: rgba(53, 106, 230, 0.45);
   background: #f2f5ff;
 }
-
 .choice-title {
   min-width: 0;
   border: 0;
@@ -427,16 +332,13 @@ input::placeholder {
   background: transparent;
   text-align: left;
 }
-
-.track-title,
-.playlist-title {
+.track-title, .playlist-title {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 15px;
   font-weight: 760;
 }
-
 .offline-badge {
   display: inline-block;
   margin-left: 7px;
@@ -448,22 +350,16 @@ input::placeholder {
   line-height: 1.2;
   vertical-align: 2px;
 }
-
-.track-meta,
-.playlist-meta,
-.empty-state {
+.track-meta, .playlist-meta, .empty-state {
   margin-top: 5px;
   color: var(--muted);
   font-size: 12px;
 }
-
-.track-actions,
-.playlist-actions {
+.track-actions, .playlist-actions {
   display: flex;
   align-items: center;
   gap: 6px;
 }
-
 .mini-button {
   min-width: 36px;
   height: 36px;
@@ -474,31 +370,26 @@ input::placeholder {
   font-size: 12px;
   font-weight: 760;
 }
-
 .mini-button svg {
   width: 18px;
   height: 18px;
   fill: currentColor;
   vertical-align: middle;
 }
-
 .mini-button.offline-saved {
   color: #fff;
   border-color: var(--teal-strong);
   background: var(--teal-strong);
 }
-
 .offline-action {
   display: none;
 }
-
 @media (hover: hover) and (pointer: fine) {
   button:not(:disabled):hover {
     transform: translateY(-2px);
     border-color: rgba(53, 106, 230, 0.34);
     box-shadow: 0 7px 18px rgba(36, 83, 188, 0.14);
   }
-
   button[aria-label]::after {
     position: absolute;
     top: calc(100% + 8px);
@@ -519,33 +410,24 @@ input::placeholder {
     transition: opacity 140ms ease, transform 140ms ease;
     white-space: nowrap;
   }
-
-  button[aria-label]:hover::after,
-  button[aria-label]:focus-visible::after {
+  button[aria-label]:hover::after, button[aria-label]:focus-visible::after {
     opacity: 1;
     transform: translate(-50%, 0);
   }
-
   .player button[aria-label]::after {
     top: auto;
     bottom: calc(100% + 8px);
     transform: translate(-50%, 3px);
   }
-
-  .player button[aria-label]:hover::after,
-  .player button[aria-label]:focus-visible::after {
+  .player button[aria-label]:hover::after, .player button[aria-label]:focus-visible::after {
     transform: translate(-50%, 0);
   }
 }
-
 @media (prefers-reduced-motion: reduce) {
-
-  button,
-  button[aria-label]::after {
+  button, button[aria-label]::after {
     transition: none;
   }
 }
-
 .secondary-button svg {
   width: 16px;
   height: 16px;
@@ -553,36 +435,30 @@ input::placeholder {
   fill: currentColor;
   vertical-align: -3px;
 }
-
 .playlist-layout {
   display: grid;
   gap: 14px;
   margin-top: 14px;
 }
-
 .playlist-detail {
   border-top: 1px solid var(--line);
   padding-top: 14px;
 }
-
 .detail-heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
 }
-
 .detail-heading h2 {
   font-size: 18px;
 }
-
 .empty-state {
   border: 1px dashed #cfd7d5;
   border-radius: var(--radius);
   padding: 18px 12px;
   text-align: center;
 }
-
 .player {
   position: fixed;
   left: 0;
@@ -600,95 +476,73 @@ input::placeholder {
   box-shadow: 0 -18px 48px rgba(17, 19, 21, 0.12);
   backdrop-filter: blur(22px);
 }
-
 .player-art {
-  display: flex;
   align-items: end;
   justify-content: center;
   gap: 4px;
   width: 54px;
   height: 54px;
-  border-radius: var(--radius);
-  background: #111315;
-  padding: 12px;
 }
-
 .player-art span {
   width: 7px;
   border-radius: 4px;
   background: var(--teal);
 }
-
 .player-art span:nth-child(1) {
   height: 19px;
 }
-
 .player-art span:nth-child(2) {
   height: 30px;
   background: var(--coral);
 }
-
 .player-art span:nth-child(3) {
   height: 24px;
   background: #f8f8f4;
 }
-
 .player.playing .player-art span {
   animation: bounce 0.9s ease-in-out infinite alternate;
 }
-
 .player.playing .player-art span:nth-child(2) {
   animation-delay: 0.12s;
 }
-
 .player.playing .player-art span:nth-child(3) {
   animation-delay: 0.24s;
 }
-
 @keyframes bounce {
   from {
     transform: scaleY(0.72);
   }
-
   to {
     transform: scaleY(1.08);
   }
 }
-
 .player-main {
   min-width: 0;
 }
-
 .now-row {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 8px;
   align-items: center;
 }
-
 .now-copy {
   min-width: 0;
 }
-
-.now-copy p,
-.now-copy span {
+.now-copy p, .now-copy span {
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
 .now-copy p {
   font-size: 15px;
   font-weight: 800;
 }
-
 .now-copy span {
   color: var(--muted);
   font-size: 12px;
   margin-top: 4px;
 }
-
 .progress-row {
   display: grid;
   grid-template-columns: 40px 1fr 40px;
@@ -699,13 +553,11 @@ input::placeholder {
   font-size: 11px;
   font-variant-numeric: tabular-nums;
 }
-
 input[type="range"] {
   min-height: 24px;
   padding: 0;
   accent-color: var(--coral);
 }
-
 .mode-row {
   display: grid;
   grid-template-columns: repeat(5, 42px);
@@ -714,7 +566,6 @@ input[type="range"] {
   align-items: center;
   margin-top: 8px;
 }
-
 .mode-button {
   display: inline-grid;
   place-items: center;
@@ -726,17 +577,7 @@ input[type="range"] {
   background: #5c7fda;
   border-color: #5c7fda;
 }
-
-.mode-button.active {
-  color: #fff;
-  background: var(--teal-strong);
-  border-color: var(--teal-strong);
-  box-shadow: 0 7px 18px rgba(36, 83, 188, 0.28);
-}
-
 .mode-button svg {
-  width: 22px;
-  height: 22px;
   overflow: visible;
   fill: none;
   stroke: currentColor;
@@ -744,7 +585,6 @@ input[type="range"] {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-
 .mode-button text {
   fill: currentColor;
   stroke: none;
@@ -752,7 +592,6 @@ input[type="range"] {
   font-weight: 800;
   text-anchor: middle;
 }
-
 .modal {
   position: fixed;
   inset: 0;
@@ -762,7 +601,6 @@ input[type="range"] {
   padding: 16px;
   background: rgba(17, 19, 21, 0.38);
 }
-
 .modal-panel {
   width: min(100%, 520px);
   max-height: min(84vh, 720px);
@@ -772,7 +610,6 @@ input[type="range"] {
   background: #fff;
   box-shadow: var(--shadow);
 }
-
 .modal-heading {
   display: flex;
   align-items: center;
@@ -780,20 +617,16 @@ input[type="range"] {
   gap: 12px;
   margin-bottom: 12px;
 }
-
 .modal-heading h2 {
   font-size: 20px;
 }
-
 .modal-actions {
   margin-top: 14px;
 }
-
 .choice-list {
   display: grid;
   gap: 8px;
 }
-
 .choice-list button {
   min-height: 46px;
   border: 1px solid var(--line);
@@ -803,14 +636,12 @@ input[type="range"] {
   color: var(--ink);
   background: #fff;
 }
-
 .settings-note {
   color: var(--muted);
   font-size: 13px;
   line-height: 1.5;
   margin-top: 10px;
 }
-
 .sr-only {
   position: absolute;
   width: 1px;
@@ -822,35 +653,24 @@ input[type="range"] {
   white-space: nowrap;
   border: 0;
 }
-
 @media (min-width: 720px) {
   .app-shell {
     padding-inline: 24px;
   }
-
   h1 {
     font-size: 42px;
   }
-
-  .download-form {
-    grid-template-columns: 1.4fr 1fr;
-    align-items: end;
-  }
-
   .form-actions {
     grid-column: 1 / -1;
     grid-template-columns: 160px 180px;
     justify-content: end;
   }
-
   .status-card {
     grid-column: 1 / -1;
   }
-
   .playlist-layout {
     grid-template-columns: 0.9fr 1.4fr;
   }
-
   .playlist-detail {
     border-top: 0;
     border-left: 1px solid var(--line);
@@ -858,32 +678,25 @@ input[type="range"] {
     padding-left: 14px;
   }
 }
-
 @media (max-width: 719px) {
   .favorite-import-form {
     grid-template-columns: 1fr;
   }
-
   .favorite-import-form .primary-button {
     width: 100%;
   }
-
   .favorites-import-panel {
     margin-bottom: 12px;
   }
-
   .favorites-import-card {
     padding: 12px;
   }
-
   body {
     background: #f7f8fa;
   }
-
   .app-shell {
     padding: calc(env(safe-area-inset-top) + 12px) 14px 184px;
   }
-
   .topbar {
     position: relative;
     top: auto;
@@ -891,2057 +704,948 @@ input[type="range"] {
     background: transparent;
     backdrop-filter: none;
   }
-
   .brand img {
     width: 36px;
     height: 36px;
   }
-
   .brand-name {
     font-size: 17px;
   }
-
   .brand-subtitle {
     max-width: 66vw;
     font-size: 11px;
   }
-
   .topbar>.icon-button {
     width: 38px;
     height: 38px;
   }
-
   .download-panel {
     display: none;
   }
-
   .content-surface {
     margin-top: 0;
     padding: 12px;
     box-shadow: 0 10px 28px rgba(17, 19, 21, 0.06);
   }
-
   .offline-summary {
     display: block;
   }
-
   .mobile-status:not([hidden]) {
     display: block;
   }
-
-  .track-card {
-    grid-template-columns: minmax(0, 1fr);
-    align-items: start;
-  }
-
-  .playlist-card {
-    min-height: 66px;
-  }
-
   .track-actions {
-    display: grid;
     grid-template-columns: repeat(5, 36px);
-    width: 100%;
-    justify-content: start;
   }
-
   .offline-action {
     display: inline-grid;
     place-items: center;
   }
-
-  .player {
-    grid-template-columns: 46px 1fr;
-    gap: 10px;
-    padding: 10px 14px calc(env(safe-area-inset-bottom) + 9px);
-  }
-
-  .player-main {
-    display: contents;
-  }
-
-  .now-row {
-    grid-column: 2;
-    align-self: center;
-  }
-
-  .player-art {
-    width: 46px;
-    height: 46px;
-    padding: 10px;
-  }
-
-  .icon-button.strong {
-    width: 46px;
-    height: 46px;
-  }
-
-  .progress-row {
-    grid-column: 1 / -1;
-    width: 100%;
-    margin-top: 6px;
-  }
-
-  .mode-row {
-    grid-column: 1 / -1;
-    width: 100%;
-    margin-top: 5px;
-  }
-
-  .favorites-import-panel {
-    display: none;
-  }
 }
-
 @media (display-mode: standalone) and (max-width: 719px) {
   .app-shell {
     padding-top: calc(env(safe-area-inset-top) + 14px);
   }
 }
-
 @media (max-width: 390px) {
   .mode-row {
     grid-template-columns: repeat(5, 38px);
     gap: 7px;
   }
-
   .mode-button {
     width: 38px;
     height: 38px;
     min-height: 38px;
   }
-
   .mode-row>.icon-button {
     width: 38px;
     height: 38px;
   }
-
   .icon-button {
     width: 40px;
     height: 40px;
   }
 }
-
-/* ===== Gama Music compact iPhone player ===== */
-
 @media (max-width: 719px) {
-
-  /* iPhone 不显示 B站收藏夹导入 */
   .favorites-import-panel {
     display: none !important;
   }
-
-  /* 页面底部给播放器少留一点空间 */
   .app-shell {
     padding-bottom: 150px;
   }
-
-  /* 整个播放器压矮 */
   .player {
-    grid-template-columns: 40px minmax(0, 1fr);
     gap: 8px;
-
-    padding:
-      7px 12px calc(env(safe-area-inset-bottom) + 6px);
+    padding: 7px 12px calc(env(safe-area-inset-bottom) + 6px);
   }
-
   .player-main {
     display: contents;
   }
-
-  /* 左边的小音乐图标 */
   .player-art {
-    width: 40px;
-    height: 40px;
     padding: 8px;
   }
-
-  /* 歌曲信息 + 大播放按钮 */
   .now-row {
     grid-column: 2;
     align-self: center;
     gap: 8px;
   }
-
   .icon-button.strong {
     width: 40px;
     height: 40px;
     border-radius: 12px;
   }
-
-  /* 五个控制按钮 */
   .mode-row {
     grid-column: 1 / -1;
-
     display: grid;
     grid-template-columns: repeat(5, 34px);
-
     justify-content: center;
     align-items: center;
-
-    gap: 13px;
-
     width: 100%;
     margin-top: 2px;
   }
-
-  /* 上一首 / 下一首 */
   .mode-row>.icon-button {
     width: 34px;
     height: 34px;
-
     border-radius: 50%;
-
     color: var(--ink);
     background: transparent;
     border-color: transparent;
-
     box-shadow: none;
   }
-
-  /* 三个循环模式 */
   .mode-button {
     width: 34px;
     height: 34px;
     min-height: 34px;
-
     padding: 0;
-
     border-radius: 50%;
-
     color: var(--teal-strong);
     background: transparent;
     border-color: transparent;
-
     box-shadow: none;
   }
-
-  /* 未选中的按钮不要整块蓝色 */
   .mode-button:not(.active) {
     color: #6079b9;
     background: transparent;
   }
-
-  /* 当前选择的循环模式 */
   .mode-button.active {
     color: #ffffff;
-
     background: var(--teal-strong);
     border-color: var(--teal-strong);
-
     box-shadow: 0 3px 9px rgba(36, 83, 188, 0.22);
   }
-
-  .mode-button svg,
-  .mode-row>.icon-button svg {
+  .mode-button svg, .mode-row>.icon-button svg {
     width: 20px;
     height: 20px;
   }
-
-  /* 进度条 */
   .progress-row {
     grid-column: 1 / -1;
-
     display: grid;
-
-    grid-template-columns:
-      36px minmax(0, 1fr) 36px;
-
+    grid-template-columns: 36px minmax(0, 1fr) 36px;
     gap: 7px;
-
     align-items: center;
-
     width: 100%;
-
     margin-top: 0;
-
     font-size: 10px;
   }
-
   #currentTime {
     text-align: left;
   }
-
   #durationTime {
     text-align: right;
   }
-
   .progress-row input[type="range"] {
     width: 100%;
     min-width: 0;
     margin: 0;
   }
 }
-
-/* ===== Desktop compact player + fixed playlist layout ===== */
-
 @media (min-width: 720px) {
-
-  /* 整个播放器更矮 */
   .player {
     grid-template-columns: 44px minmax(0, 1fr);
     gap: 10px;
-
-    padding:
-      8px 16px calc(env(safe-area-inset-bottom) + 8px);
+    padding: 8px 16px calc(env(safe-area-inset-bottom) + 8px);
   }
-
   .player-art {
     width: 44px;
     height: 44px;
     padding: 9px;
   }
-
-  /* 播放器主体：
-     第一行 = 歌名 + 五个控制按钮 + 播放键
-     第二行 = 进度条
-  */
   .player-main {
     display: grid;
-
-    grid-template-columns:
-      minmax(0, 1fr) auto auto;
-
-    grid-template-areas:
-      "info modes play"
-      "progress progress progress";
-
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-areas: "info modes play" "progress progress progress";
     align-items: center;
-
     column-gap: 12px;
     row-gap: 4px;
   }
-
-  /*
-   * now-row 原来里面同时包含：
-   * 歌名 + 蓝色播放按钮
-   *
-   * display: contents 后，
-   * 让它们直接参与 player-main 的网格排列
-   */
   .now-row {
     display: contents;
   }
-
   .now-copy {
     grid-area: info;
     min-width: 0;
   }
-
   #playPauseButton {
     grid-area: play;
-
     width: 40px;
     height: 40px;
-
     border-radius: 10px;
   }
-
-  /* 五个按钮放到歌名同一水平线上 */
   .mode-row {
     grid-area: modes;
-
     display: grid;
     grid-template-columns: repeat(5, 34px);
-
     gap: 6px;
-
     margin-top: 0;
     width: auto;
-
     align-items: center;
     justify-content: center;
   }
-
-  .mode-row>.icon-button,
-  .mode-button {
+  .mode-row>.icon-button, .mode-button {
     width: 34px;
     height: 34px;
     min-height: 34px;
-
     padding: 0;
-
     border-radius: 50%;
-
     box-shadow: none;
   }
-
-  /* 上一首 / 下一首 */
   .mode-row>.icon-button {
     background: transparent;
     border-color: transparent;
   }
-
-  /* 未选中的循环模式 */
   .mode-button:not(.active) {
     color: #6079b9;
-
     background: #f1f4fb;
     border-color: transparent;
   }
-
-  /* 当前选中的循环模式 */
   .mode-button.active {
     color: white;
-
     background: var(--teal-strong);
     border-color: var(--teal-strong);
-
-    box-shadow:
-      0 3px 9px rgba(36, 83, 188, 0.20);
+    box-shadow: 0 3px 9px rgba(36, 83, 188, 0.20);
   }
-
   .mode-row svg {
     width: 19px;
     height: 19px;
   }
-
-  /* 进度条占完整第二行 */
   .progress-row {
     grid-area: progress;
-
     display: grid;
-
-    grid-template-columns:
-      42px minmax(0, 1fr) 42px;
-
+    grid-template-columns: 42px minmax(0, 1fr) 42px;
     gap: 8px;
-
     align-items: center;
-
     width: 100%;
-
     margin-top: 0;
-
     font-size: 10px;
   }
-
   #currentTime {
     text-align: left;
   }
-
   #durationTime {
     text-align: right;
   }
-
   .progress-row input[type="range"] {
     width: 100%;
     min-width: 0;
-
     margin: 0;
   }
-
-
-  /* =========================
-     播放列表页面固定高度
-     ========================= */
-
   .playlist-layout {
     align-items: start;
   }
-
-  /*
-   * 左边：播放列表列表
-   * 不再跟着右边歌曲数量无限拉长
-   */
   .playlist-list {
     height: fit-content;
     max-height: 520px;
-
     overflow-y: auto;
     overflow-x: hidden;
-
     align-self: start;
-
     padding-right: 0;
   }
-
-  /*
-   * 右边：当前播放列表里的歌曲
-   * 超过高度后自己滚动
-   */
   .playlist-detail {
     height: auto;
     max-height: none;
-
     overflow: visible;
-
     align-self: start;
-
     min-width: 0;
-
     padding-right: 0;
   }
 }
-
-/* ===== Gama Music final UI polish ===== */
-
-/* 歌曲 / 播放列表切换 */
-.segmented {
-  gap: 4px;
-  padding: 4px;
-
-  border: 1px solid #e2e7f0;
-  border-radius: 14px;
-
-  background: #f2f5f9;
-}
-
 .segmented button {
-  min-height: 42px;
-
-  border-radius: 10px;
-
-  color: #77808d;
-  background: transparent;
-
-  font-weight: 750;
-
   box-shadow: none;
 }
-
-.segmented button.active {
-  color: var(--teal-strong);
-
-  background: #ffffff;
-
-  box-shadow:
-    0 2px 8px rgba(17, 19, 21, 0.08),
-    0 0 0 1px rgba(53, 106, 230, 0.08);
-}
-
-/* 播放列表标题右边按钮 */
 .playlist-detail-actions {
   display: flex;
   gap: 8px;
   align-items: center;
 }
-
-/* 五个播放器控制键统一风格 */
-.mode-row>.icon-button,
-.mode-button {
-  display: inline-grid;
-  place-items: center;
-
-  width: 36px;
-  height: 36px;
-  min-height: 36px;
-
-  padding: 0;
-
-  border: 1px solid #dbe4f7;
-  border-radius: 50%;
-
-  color: #5674bd;
-  background: #eef3ff;
-
-  box-shadow: none;
-}
-
-/* 上一首 / 下一首 SVG */
-.mode-row>.icon-button svg {
-  width: 19px;
-  height: 19px;
-
-  fill: currentColor;
-}
-
-/* 三个循环模式 SVG */
-.mode-button svg {
-  width: 19px;
-  height: 19px;
-}
-
-/* 当前选中的循环模式 */
-.mode-button.active {
-  color: #ffffff;
-
-  background: var(--teal-strong);
-  border-color: var(--teal-strong);
-
-  box-shadow: 0 3px 10px rgba(36, 83, 188, 0.22);
-}
-
 @media (hover: hover) and (pointer: fine) {
-
-  .mode-row>.icon-button:hover,
-  .mode-button:not(.active):hover {
+  .mode-row>.icon-button:hover, .mode-button:not(.active):hover {
     color: var(--teal-strong);
     background: #e4ecff;
     border-color: #c8d7fb;
-
     transform: translateY(-1px);
   }
 }
-
 @media (max-width: 719px) {
-
   .playlist-detail-actions {
     display: grid;
     grid-template-columns: 1fr;
     width: 100%;
   }
-
   .detail-heading {
     align-items: flex-start;
   }
-
   .playlist-offline-all {
     color: var(--teal-strong);
     background: #eef3ff;
     border-color: #dbe4f7;
   }
 }
-
-/* ==================================================
-   Gama Music - playlist navigation & final polish
-   ================================================== */
-
-
-/* ---------- Songs / Playlists segmented control ---------- */
-
 .segmented {
   padding: 4px;
   gap: 4px;
-
   border: 1px solid #e2e7ef;
   border-radius: 14px;
-
   background: #f1f4f8;
 }
-
 .segmented button {
   min-height: 42px;
-
   border-radius: 10px;
-
   color: #7a8492;
   background: transparent;
-
   font-weight: 760;
-
-  transition:
-    background 150ms ease,
-    color 150ms ease,
-    box-shadow 150ms ease;
+  transition: background 150ms ease, color 150ms ease, box-shadow 150ms ease;
 }
-
 .segmented button.active {
   color: var(--teal-strong);
-
   background: #ffffff;
-
-  box-shadow:
-    0 2px 8px rgba(17, 19, 21, 0.07),
-    0 0 0 1px rgba(53, 106, 230, 0.07);
+  box-shadow: 0 2px 8px rgba(17, 19, 21, 0.07), 0 0 0 1px rgba(53, 106, 230, 0.07);
 }
-
-
-/* ---------- Player five controls: one visual language ---------- */
-
-.mode-row>.icon-button,
-.mode-button {
+.mode-row>.icon-button, .mode-button {
   display: inline-grid;
   place-items: center;
-
   width: 36px;
   height: 36px;
   min-height: 36px;
-
   padding: 0;
-
   border: 1px solid #dbe4f5;
   border-radius: 50%;
-
   color: #5574bb;
-
   background: #f2f5fc;
-
   box-shadow: none;
 }
-
 .mode-row>.icon-button svg {
   width: 19px;
   height: 19px;
   fill: currentColor;
 }
-
 .mode-button svg {
   width: 19px;
   height: 19px;
 }
-
 .mode-button.active {
   color: #ffffff;
-
   background: var(--teal-strong);
   border-color: var(--teal-strong);
-
-  box-shadow:
-    0 3px 10px rgba(36, 83, 188, 0.20);
+  box-shadow: 0 3px 10px rgba(36, 83, 188, 0.20);
 }
-
-
-/* ---------- Mobile-only playlist UI hidden on desktop ---------- */
-
-.mobile-playlist-topbar,
-.mobile-playlist-main-actions {
+.mobile-playlist-topbar, .mobile-playlist-main-actions {
   display: none;
 }
-
 .playlist-detail-meta {
   margin-top: 4px;
-
   color: var(--muted);
-
   font-size: 12px;
 }
-
-
-
-/* ==================================================
-   iPhone
-   ================================================== */
-
 @media (max-width: 719px) {
-
-  /*
-   * Main playlist page:
-   * show playlist list only
-   */
   #playlistsView:not(.mobile-detail-open) .playlist-detail {
     display: none;
   }
-
-
-  /*
-   * Detail page:
-   * hide playlist creator and playlist list
-   */
-  #playlistsView.mobile-detail-open .playlist-form,
-
-  #playlistsView.mobile-detail-open .playlist-list {
+  #playlistsView.mobile-detail-open .playlist-form, #playlistsView.mobile-detail-open .playlist-list {
     display: none;
   }
-
-
   #playlistsView.mobile-detail-open .playlist-detail {
     display: block;
-
     border: 0;
-
     padding: 0;
-
     height: auto;
     max-height: none;
-
     overflow: visible;
   }
-
-
-  /* ---------- Playlist list cards ---------- */
-
   .playlist-card {
     min-height: 68px;
-
     border-radius: 12px;
-
     padding: 10px 12px;
   }
-
   .playlist-title {
     font-size: 16px;
   }
-
   .playlist-meta {
     font-size: 12px;
   }
-
-
-  /*
-   * Slightly smaller controls in playlist list.
-   */
   .playlist-actions {
     gap: 4px;
   }
-
   .playlist-actions .mini-button {
     width: 34px;
     min-width: 34px;
-
     height: 34px;
-
     border-radius: 10px;
   }
-
-
-  /* ---------- Detail page top bar ---------- */
-
   .mobile-playlist-topbar {
-    display: flex;
-
-    align-items: center;
-    justify-content: space-between;
-
     margin-bottom: 16px;
   }
-
-  .mobile-playlist-back {
-    min-height: 36px;
-
-    border: 0;
-
-    padding: 0 6px 0 0;
-
-    color: var(--teal-strong);
-    background: transparent;
-
-    font-size: 14px;
-    font-weight: 760;
-  }
-
   .mobile-add-song {
     display: inline-grid;
     place-items: center;
-
-    width: 36px;
-    min-width: 36px;
-
-    height: 36px;
-
-    border-radius: 50%;
-
     color: var(--teal-strong);
-
     background: #eef3ff;
     border-color: #d7e2fb;
   }
-
-
-  /* ---------- Playlist title ---------- */
-
   .detail-heading {
     display: block;
-
     margin-bottom: 12px;
   }
-
   .playlist-detail-title h2 {
     font-size: 24px;
   }
-
   .playlist-detail-meta {
     margin-top: 5px;
-
     font-size: 13px;
   }
-
-  /*
-   * Desktop Add Song button is replaced
-   * by the small + button on mobile.
-   */
   .desktop-add-song {
     display: none;
   }
-
-
-  /* ---------- Play all / Save all ---------- */
-
   .mobile-playlist-main-actions {
     display: grid;
-
     grid-template-columns: 1fr 1fr;
-
     gap: 8px;
-
     margin-bottom: 14px;
   }
-
   .playlist-main-action {
     min-height: 38px;
-
     border: 1px solid #dbe4f5;
     border-radius: 10px;
-
     padding: 0 10px;
-
     color: var(--teal-strong);
-
     background: #f2f5fc;
-
     font-size: 13px;
     font-weight: 760;
   }
-
   .playlist-main-action:active {
     background: #e6edfc;
   }
-
-
-  /* ---------- Songs inside playlist ---------- */
-
   .playlist-detail-list {
     margin-top: 8px;
   }
-
-
-  /*
-   * We no longer need the old large
-   * "全部保存到 iPhone" button.
-   */
   .playlist-offline-all {
     min-height: 38px;
   }
-
-
-  /* ---------- Player five buttons ---------- */
-
   .mode-row {
     gap: 10px;
   }
-
-  .mode-row>.icon-button,
-  .mode-button {
+  .mode-row>.icon-button, .mode-button {
     width: 34px;
     height: 34px;
     min-height: 34px;
   }
-
-  .mode-row>.icon-button svg,
-  .mode-button svg {
+  .mode-row>.icon-button svg, .mode-button svg {
     width: 18px;
     height: 18px;
   }
 }
-
-/* ===== Desktop single Bilibili download card ===== */
-
 .single-download-card {
   padding: 14px;
-
   border: 1px solid var(--line);
   border-radius: var(--radius);
-
   background: rgba(255, 255, 255, 0.92);
-
-  box-shadow:
-    0 14px 38px rgba(17, 19, 21, 0.08);
+  box-shadow: 0 14px 38px rgba(17, 19, 21, 0.08);
 }
-
-
 .single-download-heading {
   display: flex;
-
   align-items: flex-start;
   justify-content: space-between;
-
   gap: 16px;
-
   margin-bottom: 14px;
 }
-
-
 .single-download-heading h2 {
   margin: 6px 0 4px;
-
   font-size: 20px;
 }
-
-
 .single-download-heading p:last-child {
   color: var(--muted);
-
   font-size: 12px;
 }
-
-
-/* 不再需要原来巨大标题带来的额外空间 */
-
 .download-panel {
   padding: 0;
-  margin-bottom: 14px;
 }
-
-
-/* 单视频下载和收藏夹卡片宽度统一 */
-
 .download-form {
   padding: 0;
-
   border: 0;
-
   border-radius: 0;
-
   background: transparent;
-
   box-shadow: none;
 }
-
-
-/* 桌面布局 */
-
 @media (min-width: 720px) {
-
   .download-form {
     display: grid;
-
-    grid-template-columns:
-      minmax(0, 1.35fr) minmax(0, 1fr) auto;
-
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) auto;
     gap: 10px;
-
     align-items: end;
   }
-
-
   .single-url-field {
     grid-column: 1;
   }
-
-
   .single-title-field {
     grid-column: 2;
   }
-
-
   .download-form .form-actions {
     grid-column: 3;
-
     display: grid;
-
-    grid-template-columns:
-      92px 120px;
-
+    grid-template-columns: 92px 120px;
     gap: 8px;
   }
-
-
   .download-form .status-card {
     grid-column: 1 / -1;
   }
 }
-
 .download-panel {
   margin-bottom: 12px;
 }
-
 .favorites-import-panel {
   margin-bottom: 12px;
 }
-
 @media (max-width: 719px) {
   .global-mobile-status:not([hidden]) {
     display: block;
-
     margin-top: 10px;
     margin-bottom: 10px;
-
     padding: 10px 12px;
-
     border-radius: 10px;
-
     font-size: 12px;
     line-height: 1.4;
   }
-
   .global-mobile-status progress {
     display: block;
-
     width: 100%;
     height: 7px;
-
     margin-top: 8px;
-
     border-radius: 999px;
-
     overflow: hidden;
   }
 }
-
-/* ===== Playlist Covers ===== */
-
 .playlist-card {
-  grid-template-columns:
-    52px minmax(0, 1fr) auto;
+  grid-template-columns: 52px minmax(0, 1fr) auto;
 }
-
 .playlist-cover {
   display: grid;
   place-items: center;
-
   width: 52px;
   height: 52px;
-
   border-radius: 12px;
-
   overflow: hidden;
-
   color: #ffffff;
-
   font-size: 25px;
   font-weight: 800;
-
   user-select: none;
-
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.16),
-    0 5px 14px rgba(30, 45, 80, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16), 0 5px 14px rgba(30, 45, 80, 0.12);
 }
-
 .playlist-cover span {
   transform: translateY(-1px);
 }
-
-
-/* 几种固定随机样式 */
-
 .playlist-cover.cover-blue {
-  background:
-    linear-gradient(145deg,
-      #3267df,
-      #173d9c);
+  background: linear-gradient(145deg, #3267df, #173d9c);
 }
-
 .playlist-cover.cover-purple {
-  background:
-    linear-gradient(145deg,
-      #7357d8,
-      #4730a5);
+  background: linear-gradient(145deg, #7357d8, #4730a5);
 }
-
 .playlist-cover.cover-indigo {
-  background:
-    linear-gradient(145deg,
-      #5368d8,
-      #273a9a);
+  background: linear-gradient(145deg, #5368d8, #273a9a);
 }
-
 .playlist-cover.cover-sky {
-  background:
-    linear-gradient(145deg,
-      #4196db,
-      #245eb4);
+  background: linear-gradient(145deg, #4196db, #245eb4);
 }
-
 .playlist-cover.cover-mint {
-  background:
-    linear-gradient(145deg,
-      #3b9d94,
-      #216a70);
+  background: linear-gradient(145deg, #3b9d94, #216a70);
 }
-
 .playlist-cover.cover-rose {
-  background:
-    linear-gradient(145deg,
-      #d76579,
-      #9a3858);
+  background: linear-gradient(145deg, #d76579, #9a3858);
 }
-
-
-/* iPhone */
-
 @media (max-width: 719px) {
-
   .playlist-card {
-    grid-template-columns:
-      50px minmax(0, 1fr) auto;
-
+    grid-template-columns: 50px minmax(0, 1fr) auto;
     gap: 10px;
   }
-
   .playlist-cover {
     width: 50px;
     height: 50px;
-
     border-radius: 11px;
-
     font-size: 23px;
   }
 }
-
-/* ==================================================
-   Gama Music - Track artwork
-   ================================================== */
-
-
-/* ---------- Song card ---------- */
-
 .track-card {
-  grid-template-columns:
-    56px minmax(0, 1fr) auto;
-
-  grid-template-areas:
-    "cover copy actions";
-
+  grid-template-columns: 56px minmax(0, 1fr) auto;
+  grid-template-areas: "cover copy actions";
   align-items: center;
-
   gap: 11px;
-
   min-height: 76px;
-
   padding: 9px;
 }
-
-
 .track-cover {
   grid-area: cover;
-
   position: relative;
-
   width: 56px;
   height: 56px;
-
   flex: 0 0 auto;
-
   overflow: hidden;
-
   border-radius: 12px;
-
   background: #e9eef8;
-
-  box-shadow:
-    0 5px 14px rgba(26, 42, 78, 0.12);
+  box-shadow: 0 5px 14px rgba(26, 42, 78, 0.12);
 }
-
-
 .track-cover img {
   display: block;
-
   width: 100%;
   height: 100%;
-
   object-fit: cover;
 }
-
-
-/* 没有真实封面的旧歌曲 */
-
 .track-cover-default {
   display: grid;
   place-items: center;
-
   color: #ffffff;
-
-  background:
-    linear-gradient(145deg,
-      #557ee1 0%,
-      #3158b9 55%,
-      #233f91 100%);
+  background: linear-gradient(145deg, #557ee1 0%, #3158b9 55%, #233f91 100%);
 }
-
-
 .track-cover-default::before {
   position: absolute;
-
   width: 34px;
   height: 34px;
-
-  border:
-    1px solid rgba(255, 255, 255, 0.18);
-
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 50%;
-
   content: "";
 }
-
-
 .track-cover-default span {
   position: relative;
-
   z-index: 1;
-
   font-size: 24px;
   font-weight: 800;
 }
-
-
 .track-copy {
   grid-area: copy;
-
   min-width: 0;
 }
-
-
 .track-actions {
   grid-area: actions;
-
   justify-content: flex-end;
 }
-
-
-
-/* ==================================================
-   Player artwork
-   ================================================== */
-
 .player-art {
   position: relative;
-
   display: grid;
   place-items: center;
-
   padding: 0 !important;
-
   overflow: hidden;
-
   border-radius: 12px;
-
-  background:
-    linear-gradient(145deg,
-      #557ee1,
-      #263f91);
-
-  box-shadow:
-    0 5px 14px rgba(17, 32, 70, 0.16);
-
+  background: linear-gradient(145deg, #557ee1, #263f91);
+  box-shadow: 0 5px 14px rgba(17, 32, 70, 0.16);
   transform-origin: center;
-
   isolation: isolate;
 }
-
-
 .player-art img {
   display: block;
-
   width: 100%;
   height: 100%;
-
   object-fit: cover;
-
   transform: scale(1.001);
 }
-
-
 .player-art.default {
   color: #ffffff;
 }
-
-
 .player-cover-symbol {
   position: relative;
-
   z-index: 2;
-
   width: auto !important;
   height: auto !important;
-
   background: transparent !important;
-
   font-size: 24px;
   font-weight: 800;
 }
-
-
-/*
- * 轻微的高光层。
- * 播放时会慢慢扫过封面。
- */
 .player-art::after {
   position: absolute;
-
   inset: 0;
-
   z-index: 3;
-
-  background:
-    linear-gradient(115deg,
-      transparent 25%,
-      rgba(255, 255, 255, 0.16) 45%,
-      transparent 65%);
-
+  background: linear-gradient(115deg, transparent 25%, rgba(255, 255, 255, 0.16) 45%, transparent 65%);
   content: "";
-
   pointer-events: none;
-
-  transform:
-    translateX(-140%);
+  transform: translateX(-140%);
 }
-
-
-/*
- * 播放时：
- * 很轻微的呼吸 + 高光，
- * 不再使用以前三根柱子的跳动。
- */
 .player.playing .player-art {
-  animation:
-    gama-cover-breathe 3.2s ease-in-out infinite;
+  animation: gama-cover-breathe 3.2s ease-in-out infinite;
 }
-
-
 .player.playing .player-art::after {
-  animation:
-    gama-cover-shine 4.6s ease-in-out infinite;
+  animation: gama-cover-shine 4.6s ease-in-out infinite;
 }
-
-
 @keyframes gama-cover-breathe {
-
-  0%,
-  100% {
-    transform:
-      scale(1);
-
-    box-shadow:
-      0 5px 14px rgba(17, 32, 70, 0.15);
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 5px 14px rgba(17, 32, 70, 0.15);
   }
-
   50% {
-    transform:
-      scale(1.035);
-
-    box-shadow:
-      0 7px 18px rgba(36, 83, 188, 0.28);
+    transform: scale(1.035);
+    box-shadow: 0 7px 18px rgba(36, 83, 188, 0.28);
   }
 }
-
-
 @keyframes gama-cover-shine {
-
-  0%,
-  58% {
-    transform:
-      translateX(-140%);
+  0%, 58% {
+    transform: translateX(-140%);
   }
-
   78% {
-    transform:
-      translateX(140%);
+    transform: translateX(140%);
   }
-
   100% {
-    transform:
-      translateX(140%);
+    transform: translateX(140%);
   }
 }
-
-
-
-/* ==================================================
-   iPhone artwork layout
-   ================================================== */
-
 @media (max-width: 719px) {
-
-  /*
-   * 左边封面跨两行：
-   *
-   * 封面 | 歌名
-   *      | 五个按钮
-   */
   .track-card {
-    grid-template-columns:
-      68px minmax(0, 1fr);
-
-    grid-template-rows:
-      auto auto;
-
-    grid-template-areas:
-      "cover copy"
-      "cover actions";
-
+    grid-template-columns: 68px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    grid-template-areas: "cover copy" "cover actions";
     column-gap: 10px;
     row-gap: 6px;
-
     align-items: center;
-
     min-height: 86px;
-
     padding: 8px;
   }
-
-
   .track-cover {
     width: 68px;
     height: 68px;
-
     align-self: center;
-
     border-radius: 12px;
   }
-
-
   .track-cover-default span {
     font-size: 27px;
   }
-
-
   .track-copy {
     align-self: end;
   }
-
-
-  /*
-   * 五个按钮全部靠右。
-   */
   .track-actions {
     display: flex;
-
     width: 100%;
-
     justify-content: flex-end;
     align-items: center;
-
     gap: 5px;
-
     align-self: start;
   }
-
-
   .track-actions .mini-button {
     width: 32px;
     min-width: 32px;
-
     height: 32px;
-
     padding: 0;
-
     border-radius: 9px;
   }
-
-
   .track-actions .mini-button svg {
     width: 16px;
     height: 16px;
   }
-
-
-  /*
-   * iPhone 底部播放器封面
-   */
   .player {
-    grid-template-columns:
-      44px minmax(0, 1fr);
+    grid-template-columns: 44px minmax(0, 1fr);
   }
-
-
   .player-art {
     width: 44px;
     height: 44px;
-
     border-radius: 10px;
   }
-
-
   .player-cover-symbol {
     font-size: 20px;
   }
 }
-
-
-/* 用户系统选择“减少动态效果”时停止封面动画 */
-
 @media (prefers-reduced-motion: reduce) {
-
-  .player.playing .player-art,
-  .player.playing .player-art::after {
+  .player.playing .player-art, .player.playing .player-art::after {
     animation: none;
   }
 }
-
-/* Playlist cards are clickable except their own action buttons */
-
 .playlist-card {
   cursor: pointer;
 }
-
 .playlist-card .choice-title {
   cursor: pointer;
 }
-
 @media (hover: hover) and (pointer: fine) {
   .playlist-card:hover {
     border-color: rgba(53, 106, 230, 0.30);
     background: #f8faff;
   }
-
   .playlist-card.active:hover {
     background: #f2f5ff;
   }
 }
-
 @media (max-width: 719px) {
-
-  /*
-   * 进入具体播放列表后，
-   * 隐藏“歌曲 / 播放列表”两个 Tab。
-   */
   .content-surface.playlist-detail-mode > .segmented {
     display: none;
   }
-
   .content-surface.playlist-detail-mode {
     padding-top: 8px;
   }
 }
-
 @media (max-width: 719px) {
-
-  /*
-   * 歌单顶部操作栏：
-   * 滚动歌曲时始终固定。
-   */
-  .mobile-playlist-topbar {
-    position: sticky;
-
-    top: calc(
-      env(safe-area-inset-top) + 4px
-    );
-
-    z-index: 20;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: space-between;
-
-    margin:
-      -4px
-      -4px
-      16px;
-
-    padding:
-      6px
-      4px
-      9px;
-
-    background:
-      rgba(255, 255, 255, 0.94);
-
-    border-bottom:
-      1px solid
-      rgba(223, 227, 234, 0.85);
-
-    backdrop-filter:
-      blur(14px);
-
-    -webkit-backdrop-filter:
-      blur(14px);
-  }
-
-
-  /*
-   * 明显的大返回按钮
-   */
   .mobile-playlist-back {
-    display: inline-flex;
-
     align-items: center;
-
     gap: 6px;
-
-    min-height: 44px;
-
-    padding:
-      0
-      14px
-      0
-      11px;
-
-    border:
-      1px solid
-      #d6e1fa;
-
-    border-radius: 14px;
-
-    color:
-      var(--teal-strong);
-
-    background:
-      #f1f5ff;
-
-    box-shadow:
-      0 3px 10px
-      rgba(36, 83, 188, 0.10);
-
     font-size: 15px;
     font-weight: 800;
   }
-
-
-  .mobile-playlist-back .back-arrow {
-    font-size: 22px;
-
-    line-height: 1;
-
-    transform:
-      translateY(-1px);
-  }
-
-
-  /*
-   * 右边添加歌曲 + 也跟着固定
-   */
-  .mobile-add-song {
-    width: 44px;
-    min-width: 44px;
-
-    height: 44px;
-
-    border-radius: 14px;
-  }
 }
-/* ==================================================
-   Player idle artwork
-   ================================================== */
-
 .player-art.idle {
   display: flex;
   align-items: end;
   justify-content: center;
-
   gap: 4px;
-
   padding: 9px !important;
-
   background: #111315;
-
-  box-shadow:
-    0 5px 14px
-    rgba(17, 19, 21, 0.18);
+  box-shadow: 0 5px 14px rgba(17, 19, 21, 0.18);
 }
-
-
-/* 去掉歌曲封面的高光层 */
-
 .player-art.idle::after {
   display: none;
 }
-
-
 .player-art.idle .idle-bar {
   display: block;
-
   width: 6px;
-
   border-radius: 4px;
-
   background: #356ae6;
 }
-
-
 .player-art.idle .idle-bar:nth-child(1) {
   height: 17px;
-
   background: #356ae6;
 }
-
-
 .player-art.idle .idle-bar:nth-child(2) {
   height: 27px;
-
   background: #e45f50;
 }
-
-
 .player-art.idle .idle-bar:nth-child(3) {
   height: 21px;
-
   background: #f8f8f4;
 }
-/* ==================================================
-   Clean iPhone playlist detail screen
-   ================================================== */
-
 @media (max-width: 719px) {
-
-  /*
-   * 进入具体歌单以后：
-   * 隐藏 Gama Music 顶栏。
-   */
   body.playlist-detail-mode .topbar {
     display: none;
   }
-
-
-  /*
-   * 原来 app-shell 自己预留了安全区。
-   * 现在改由固定返回栏负责。
-   */
   body.playlist-detail-mode .app-shell {
     padding-top: 0;
   }
-
-
-  body.playlist-detail-mode
-  .content-surface {
+  body.playlist-detail-mode .content-surface {
     margin-top: 0;
-
     padding-top: 0;
   }
-
-
-  body.playlist-detail-mode
-  #playlistsView {
+  body.playlist-detail-mode #playlistsView {
     margin-top: 0;
   }
-
-
-  body.playlist-detail-mode
-  .playlist-layout {
+  body.playlist-detail-mode .playlist-layout {
     margin-top: 0;
   }
-
-
-  /*
-   * 真正的手机顶部导航栏。
-   *
-   * top: 0，
-   * 自己内部使用 safe-area padding。
-   *
-   * 因此下面的“开车”等内容
-   * 再也不可能跑到状态栏上。
-   */
   .mobile-playlist-topbar {
     position: sticky;
-
     top: 0;
-
     z-index: 50;
-
-    display: flex;
-
-    align-items: center;
     justify-content: space-between;
-
-    margin:
-      0
-      -4px
-      16px;
-
-    padding:
-      calc(env(safe-area-inset-top) + 8px)
-      4px
-      9px;
-
-    background:
-      rgba(255, 255, 255, 0.97);
-
-    border-bottom:
-      1px solid
-      rgba(223, 227, 234, 0.9);
-
-    box-shadow:
-      0 4px 14px
-      rgba(17, 19, 21, 0.05);
-
-    backdrop-filter:
-      blur(16px);
-
-    -webkit-backdrop-filter:
-      blur(16px);
+    margin: 0 -4px 16px;
+    padding: calc(env(safe-area-inset-top) + 8px) 4px 9px;
+    background: rgba(255, 255, 255, 0.97);
+    border-bottom: 1px solid rgba(223, 227, 234, 0.9);
+    box-shadow: 0 4px 14px rgba(17, 19, 21, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
   }
-
-
-  /*
-   * 只显示一个明显的大返回箭头
-   */
   .mobile-playlist-back {
     display: grid;
     place-items: center;
-
     width: 50px;
     min-width: 50px;
-
     height: 50px;
     min-height: 50px;
-
     padding: 0;
-
-    border:
-      1px solid
-      #d6e1fa;
-
+    border: 1px solid #d6e1fa;
     border-radius: 15px;
-
-    color:
-      var(--teal-strong);
-
-    background:
-      #f1f5ff;
-
-    box-shadow:
-      0 3px 10px
-      rgba(36, 83, 188, 0.10);
+    color: var(--teal-strong);
+    background: #f1f5ff;
+    box-shadow: 0 3px 10px rgba(36, 83, 188, 0.10);
   }
-
-
   .mobile-playlist-back .back-arrow {
     font-size: 30px;
-
     font-weight: 700;
-
     line-height: 1;
-
-    transform:
-      translateY(-1px);
+    transform: translateY(-1px);
   }
-
-
-  /*
-   * + 与返回按钮对称
-   */
   .mobile-add-song {
     width: 50px;
     min-width: 50px;
-
     height: 50px;
-
     border-radius: 15px;
   }
 }
-/* ==================================================
-   Playlist detail identity + collapsing title
-   ================================================== */
-
 .playlist-detail-identity {
   display: flex;
   align-items: center;
-
   gap: 12px;
-
   min-width: 0;
 }
-
-
 .playlist-detail-cover {
   width: 48px;
   height: 48px;
-
   flex: 0 0 auto;
-
   border-radius: 12px;
-
   font-size: 21px;
 }
-
-
-/*
- * 桌面不显示顶部的小标题。
- */
 .mobile-playlist-sticky-title {
   display: none;
 }
-
-
-
 @media (max-width: 719px) {
-
-  /*
-   * 正文里的大播放列表封面
-   */
   .playlist-detail-identity {
     gap: 13px;
   }
-
-
   .playlist-detail-cover {
     width: 58px;
     height: 58px;
-
     border-radius: 14px;
-
     font-size: 27px;
   }
-
-
   .playlist-detail-title {
     min-width: 0;
   }
-
-
   .playlist-detail-title h2 {
     overflow: hidden;
-
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-
-
-  /*
-   * 顶部严格分三栏：
-   *
-   * 返回 | 小标题 | +
-   *
-   * 这样播放列表名称永远真正居中。
-   */
   .mobile-playlist-topbar {
     display: grid;
-
-    grid-template-columns:
-      50px
-      minmax(0, 1fr)
-      50px;
-
+    grid-template-columns: 50px minmax(0, 1fr) 50px;
     align-items: center;
   }
-
-
-  /*
-   * 滚动后出现的小标题
-   */
   .mobile-playlist-sticky-title {
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     gap: 8px;
-
     min-width: 0;
-
     padding: 0 8px;
-
     opacity: 0;
-
     pointer-events: none;
-
-    transform:
-      translateY(5px);
-
-    transition:
-      opacity 180ms ease,
-      transform 180ms ease;
+    transform: translateY(5px);
+    transition: opacity 180ms ease, transform 180ms ease;
   }
-
-
   .mobile-playlist-sticky-title.visible {
     opacity: 1;
-
-    transform:
-      translateY(0);
+    transform: translateY(0);
   }
-
-
-  /*
-   * 顶栏里的小播放列表封面
-   */
   .playlist-sticky-cover {
     width: 32px;
     height: 32px;
-
     flex: 0 0 auto;
-
     border-radius: 9px;
-
     font-size: 15px;
-
-    box-shadow:
-      inset 0 0 0 1px
-      rgba(255, 255, 255, 0.14);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
   }
-
-
   .mobile-playlist-sticky-name {
     min-width: 0;
-
     overflow: hidden;
-
     color: var(--ink);
-
     text-overflow: ellipsis;
     white-space: nowrap;
-
     font-size: 16px;
     font-weight: 800;
   }
