@@ -227,9 +227,28 @@ function mergeOfflineTracks(library, cachedLibrary) {
 }
 
 function formatBytes(bytes) {
-  if (!Number.isFinite(bytes) || bytes <= 0) return '0 MB';
-  const mb = bytes / (1024 * 1024);
-  return `${mb < 10 ? mb.toFixed(1) : Math.round(mb)} MB`;
+  if (
+    !Number.isFinite(bytes) ||
+    bytes <= 0
+  ) {
+    return '0 MB';
+  }
+
+  const mb =
+    bytes / (1024 * 1024);
+
+  if (mb < 1024) {
+    return `${
+      mb < 10
+        ? mb.toFixed(1)
+        : Math.round(mb)
+    } MB`;
+  }
+
+  const gb =
+    mb / 1024;
+
+  return `${gb.toFixed(2)} GB`;
 }
 
 async function refreshOfflineState() {
@@ -244,12 +263,8 @@ async function refreshOfflineState() {
   state.offlineCoverUrls.clear();
 
   try {
-    const [records, estimate] =
-      await Promise.all([
-        getAllOfflineTracks(),
-        navigator.storage?.estimate?.() ||
-        Promise.resolve({ usage: 0 })
-      ]);
+    const records =
+      await getAllOfflineTracks();
 
     const audioRecords =
       records.filter(
@@ -286,7 +301,22 @@ async function refreshOfflineState() {
     }
 
     state.offlineUsage =
-      estimate?.usage || 0;
+      records.reduce(
+        (total, record) => {
+          const audioSize =
+            record?.blob?.size || 0;
+
+          const coverSize =
+            record?.coverBlob?.size || 0;
+
+          return (
+            total +
+            audioSize +
+            coverSize
+          );
+        },
+        0
+      );
 
   } catch {
     state.offlineTrackIds =
