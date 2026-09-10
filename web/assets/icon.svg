@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Gama Music">
+  <rect width="64" height="64" rx="14" fill="#111315"/>
+  <path d="M16 42V26c0-2.2 1.8-4 4-4h3c2.2 0 4 1.8 4 4v16c0 2.2-1.8 4-4 4h-3c-2.2 0-4-1.8-4-4Z" fill="#356ae6"/>
+  <path d="M29 46V18c0-2.2 1.8-4 4-4h3c2.2 0 4 1.8 4 4v28c0 2.2-1.8 4-4 4h-3c-2.2 0-4-1.8-4-4Z" fill="#ef6757"/>
+  <path d="M42 40V24c0-2.2 1.8-4 4-4h3c2.2 0 4 1.8 4 4v16c0 2.2-1.8 4-4 4h-3c-2.2 0-4-1.8-4-4Z" fill="#f8f8f4"/>
+  <circle cx="32" cy="32" r="14" fill="none" stroke="#f8f8f4" stroke-width="3" opacity=".45"/>
+</svg>

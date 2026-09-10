@@ -1,0 +1,15 @@
+{
+  "name": "gama-music",
+  "version": "1.0.0",
+  "private": true,
+  "description": "iPhone-first PWA music player with a Mac local Bilibili MP3 download server.",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server/server.js",
+    "check": "node server/check-env.js",
+    "icons": "node scripts/make-icons.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
